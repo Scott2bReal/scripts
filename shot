@@ -1,0 +1,10 @@
+#!/bin/bash
+trap 'echo "Exiting..."; exit 1' INT
+coords=$(slop)
+filename=~/screenshots/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png
+if [[ -z $coords ]]; then
+  echo "No coordinates given"
+  exit 1
+fi
+shotgun -g "$coords" "$filename"
+xclip -selection clipboard -t image/png "$filename"

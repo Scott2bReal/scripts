@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ -f /tmp/statusbar/upds.txt ]; then
+    rm /tmp/statusbar/upds.txt
+    echo "Cleared updates in status bar"
+else
+    echo "No more updates available"
+fi
