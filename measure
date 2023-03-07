@@ -1,15 +1,17 @@
 #!/bin/bash
-coords=$(slop -f "%x %y" | awk '{printf "X: %d, Y: %d\n", $1, $2}')
+coords=$(slop -f "%w %h" | awk '{printf "X: %d, Y: %d\n", $1, $2}')
 if [ -z "$coords" ]; then
     rm /tmp/statusbar/coords.txt
     echo 'No coordinates selected'
     exit 1
 fi
+
 echo "$coords" > /tmp/statusbar/coords.txt
 sleep 10s
 
-# If the current file /tmp/statusbar/coords.txt is equal to the variable coords after 10 secods, delete the file and exit the script
 if [ "$(cat /tmp/statusbar/coords.txt)" = "$coords" ]; then
     rm /tmp/statusbar/coords.txt
     exit 0
 fi
+
+exit 0
