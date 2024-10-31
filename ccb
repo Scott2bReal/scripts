@@ -1,0 +1,28 @@
+#!/bin/bash
+
+project_dir="$HOME/projects/ccc-ballot"
+session_name="ccc-ballot"
+
+if ! tmux has-session -t "$session_name" 2>/dev/null; then
+# Start a new Tmux session if not already in a Tmux session
+if [[ -z $TMUX ]]; then
+  tmux new-session -s "$session_name" -c "$project_dir" -d
+
+  # Create 4 more windows and set up session
+  tmux send-keys -t "$session_name" "vim" Enter
+
+  tmux new-window -t "$session_name" -c "$project_dir"
+  tmux send-keys -t "$session_name" "g" Enter
+
+  tmux new-window -t "$session_name" -c "$project_dir"
+
+  tmux new-window -t "$session_name" -n "web" -c "$project_dir"
+  tmux send-keys -t "$session_name" "p dev" Enter
+
+  # Select the first window
+  tmux select-window -t "$session_name:1"
+  fi
+fi
+  # Attach to the new session
+  tmux attach-session -t "$session_name"
+
